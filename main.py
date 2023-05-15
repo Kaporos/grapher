@@ -6,10 +6,9 @@ import ctypes
 
 
 try:
-    result = ctypes.windll.user32.MessageBoxW(None, "Show graph (YES) or generate png (NO)", "Question", 4)
     folder = sys.argv[1]
     lgraph = graph.Graph.parse(folder)
-    lgraph.plot(show=(result==6))
+    lgraph.plot()
 except Exception as e:
     print("error: ", e)
 """

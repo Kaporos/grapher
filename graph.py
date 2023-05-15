@@ -62,7 +62,7 @@ class Graph:
                         if "\t" in line:
                             separator = "\t"
                             
-                        items = [i.replace(",", ".") for i in line.split(";")]
+                        items = [i.replace(",", ".") for i in line.split(separator)]
                         t, a, b = [float(item) for item in items]
                         dataXA_local.append(t)
                         dataXB_local.append(t)
@@ -127,8 +127,6 @@ class Graph:
                 else:
                     plt.ylim(self.config["axes"][ax]["range"])
 
-        if show:
-            plt.show()
-        else:
-            plt.savefig(os.path.join(sys.argv[1], "plot.png"))
+        plt.show()
+        plt.savefig(os.path.join(sys.argv[1], "plot.png"))
 
