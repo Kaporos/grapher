@@ -42,6 +42,7 @@ class Graph:
 
         }
         cfg_file = os.path.join(folder, "config.toml")
+
         if os.path.exists(cfg_file):
             with open(cfg_file, mode="rb") as cfg:
                 graph_config = tomllib.load(cfg)

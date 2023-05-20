@@ -1,20 +1,19 @@
-# Grapher by Théo
+# Grapher 
 
-Yoo! 
 
 Tu veux utiliser cet outil trop cool ? normal c'est le meilleur.
 
-Bref..
 
 ## Installation
 
-1. Télécharge ce repo github en zip (y a un bouton vert en haut a droite, demande a qqn si tu sais pas comment faire)
-2. Extrait pour avoir un dossier sur ton pc contenant les fichiers python
-3. Ouvre un terminal (encore une fois, demande à quelqu'un si tu sais pas comment faire #vlad )
-4. Lance "install.py" (ATTENTION ! Une fois lancé, ne déplace plus les fichiers python du dossier dans lequel ils sont, sinon ça marchera plus)
-5. Si le programme t'affiche "Installé !" Alors c'est bon :)
+1. Clone ce repo
+2. Lance "install.py" (ATTENTION ! Une fois lancé, ne déplace plus les fichiers python du dossier dans lequel ils sont, sinon ça marchera plus)
+3. Si le programme t'affiche "Installé !" Alors c'est bon :)
+
+(Cela pourrait ne pas marcher sur Windows 11)
 
 (Si tu devais modifier l'emplacement des fichiers python, relance install.py au nouvel endroit et ça sera bon :) )
+
 
 ## Note
 
@@ -44,6 +43,13 @@ Fichiers créés: "config.toml" -> Configuration du graphe en tant que tel.
 
 D'autres fichiers toml seront créés (un par csv) pour paramétrer chaque graphe individuellement.
 
+## Utilisation avancée
+
+Si le raccourci depuis l'explorateur de fichier windows devait ne pas fonctionner, tu peux aussi lancer le programme en faisant
+
+  py main.py <CHEMIN_ABSOLU_DOSSIER_CONTENANT_LES_CSV>
+
+(attention a cause des path pourris de windows, ne pas mettre de "\" a la fin du path )
 ## Conclusion 
 
 Enjoy !
