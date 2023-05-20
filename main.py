@@ -11,6 +11,7 @@ try:
     lgraph.plot()
 except Exception as e:
     print("error: ", e)
+    input("")
 """
 subfolders = [ f.path for f in os.scandir("./graphs") if f.is_dir() ]
 
@@ -19,4 +20,3 @@ for folder in subfolders:
     lgraph.plot()
 """
 print("Graphs generated !")
-input("Waiting for you to press enter..")

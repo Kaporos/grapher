@@ -28,9 +28,10 @@ class Graph:
 
         graph_config = {
             "title": os.path.basename(folder),
+            "maxRange": [],
             "axes": {
                 "X": {
-                    "label": "Temps [ms]",
+                    "label": "Temps [us]",
                     "range": []
                 },
                 "Y": {
@@ -56,23 +57,8 @@ class Graph:
                 dataXB_local = []
                 dataYA_local = []
                 dataYB_local = []
-                for line in content:
-                    try:
-                        separator = ";"
-                        if "\t" in line:
-                            separator = "\t"
-                            
-                        items = [i.replace(",", ".") for i in line.split(separator)]
-                        t, a, b = [float(item) for item in items]
-                        dataXA_local.append(t)
-                        dataXB_local.append(t)
-                        dataYA_local.append(a)
-                        dataYB_local.append(b)
+                grange = graph_config["maxRange"]
 
-                    except:
-                        continue
-                dataXA_local = list(map(lambda t: t - dataXA_local[0], dataXA_local))
-                dataXB_local = list(map(lambda t: t - dataXB_local[0], dataXB_local))
                 configfile, _ = os.path.splitext(file)
                 configfile += ".toml"
                 if os.path.exists(configfile):
@@ -100,6 +86,31 @@ class Graph:
                         data = tomli_w.dumps(config)
                         print("write")
                         cfg.write(data)
+
+                for line in content:
+                    try:
+                        separator = ";"
+                        if "\t" in line:
+                            separator = "\t"
+                            
+                        items = [i.replace(",", ".") for i in line.split(separator)]
+                        if len(items) == 3:
+                            t, a, b = [float(item) for item in items]
+                        else:
+                            t, a = [float(item) for item in items]
+                            b = 0
+                        if grange == [] or (t + config["A"]["offset"] > grange[0] and t + config["A"]["offset"] < grange[1]):
+                            dataXA_local.append(t)
+                            dataYA_local.append(a)
+                        if grange == [] or (t + config["B"]["offset"] > grange[0] and t + config["B"]["offset"]< grange[1]):
+                            dataXB_local.append(t)
+                            dataYB_local.append(b)
+
+                    except:
+                        continue
+                dataXA_local = list(map(lambda t: (t - dataXA_local[0]) + config["A"]["offset"] , dataXA_local))
+                dataXB_local = list(map(lambda t: (t - dataXB_local[0]) + config["B"]["offset"], dataXB_local))
+
                 if config['A']['enabled']:
                     plots.append(Plot(dataXA_local, dataYA_local, config['A']))
                 if config['B']['enabled']:
@@ -127,6 +138,6 @@ class Graph:
                 else:
                     plt.ylim(self.config["axes"][ax]["range"])
 
-        plt.show()
         plt.savefig(os.path.join(sys.argv[1], "plot.png"))
+        plt.show()
 
